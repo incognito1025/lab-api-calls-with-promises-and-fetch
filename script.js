@@ -4,7 +4,7 @@ const Base_URL = "https://opentdb.com/api.php?amount=10";
 const form = document.querySelector("form");
 const main = document.querySelector("main");
 
-//
+//listens for form submission
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     
@@ -36,17 +36,37 @@ function displayTrivia(results) {
         const button = document.createElement("button");
         button.innerText = "Show Answer";
         
-        const correctAnswer = document.createElement("p");
-        correctAnswer.classList.add("hidden");
+        //const correctAnswer = document.createElement("p");
+        //correctAnswer.classList.add("hidden");
 
-        article.append(category, q, button, correctAnswer);  // adding them to `main` in html, take all the others and nest them
-        main.append(article)   // article will have children
+        let showAnswer = false;
+        
+        //for each trivia question, make it so that clicking on the button `Show Answer` reveals the correct answer.
+        button.addEventListener("click", (event) => {
+            event.preventDefault();
+            if (!showAnswer) {
+                const correctAnswer = document.createElement("p");
+            
+                //correctAnswer.classList.add("hidden");
+                correctAnswer.innerText = results[i].correct_answer;
+                article.append(correctAnswer);
+            }
+
+         showAnswer = true;
+
+
+            //conditional statement. if we click on `Show Answer`, then display the correctAnswer. if we click on `Show Answer > 1', then display "hidden"?
+
+
+        });
+        article.append(category, q, button);  // adding them to `main` in html, take all the others and nest them
+        main.append(article)   // article will have children, appending the p tag with the correctAnswer.
+        
     }
 
 
 
 }
-
 
 
 //
